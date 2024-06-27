@@ -4,24 +4,31 @@ import personService from '../services/persons'
 const PersonForm = ({newName, setNewName, newNumber, setNewNumber, persons, setPersons}) => {
     const addName = (event) => {
         event.preventDefault()
-        if (persons.find(person => JSON.stringify(newName) === JSON.stringify(person.name)))
-          return (alert(`${newName} is already added to phonebook`))
-    
-        const nameObject = {
-          name: newName,
-          number: newNumber
-        }
-        personService
-          .create(nameObject)
-          .then(response => {
-            setPersons(persons.concat(response.data))
-            setNewName('')
-            setNewNumber('')
-          })
-        
+        const arr = persons.find(person => JSON.stringify(newName.toLowerCase()) === JSON.stringify(person.name.toLowerCase()))
+
+        if (typeof arr !== 'undefined')
+          { if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
+            const changedPerson = {...arr, number: newNumber}
+            personService.update(changedPerson.id, changedPerson).then(response => {
+              setPersons(persons.map(n => n.id !== changedPerson.id ? n : response.data))
+            })
+          } else {console.log('do not want to change number')}
+          } else {
+            const nameObject = {
+              name: newName,
+              number: newNumber
+            }
+            personService
+              .create(nameObject)
+              .then(response => {
+                setPersons(persons.concat(response.data))
+                setNewName('')
+                setNewNumber('')
+              })
+          }        
       }
 
-      
+    
 
     return (
         <form>

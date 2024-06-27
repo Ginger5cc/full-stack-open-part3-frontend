@@ -1,13 +1,10 @@
-import axios from 'axios'
+import personService from '../services/persons'
 
 const ShowName = ({person, persons, setPersons}) => {
   const delPersonOf = (id, name) => {
     if (window.confirm(`Delete ${name}?`)) {
-      console.log('ready to delete ' + id)
-      const url = `http://localhost:3001/persons/${id}`
       const arr = persons.filter(n => n.id != id)
-
-      axios.delete(url).then(setPersons(arr))
+      personService.delP(id).then(setPersons(arr))
     }
   }
     return (
