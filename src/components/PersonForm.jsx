@@ -1,7 +1,7 @@
 import axios from 'axios'
 import personService from '../services/persons'
 
-const PersonForm = ({newName, setNewName, newNumber, setNewNumber, persons, setPersons}) => {
+const PersonForm = ({newName, setNewName, newNumber, setNewNumber, persons, setPersons, setUpdateMessage}) => {
     const addName = (event) => {
         event.preventDefault()
         const arr = persons.find(person => JSON.stringify(newName.toLowerCase()) === JSON.stringify(person.name.toLowerCase()))
@@ -9,9 +9,15 @@ const PersonForm = ({newName, setNewName, newNumber, setNewNumber, persons, setP
         if (typeof arr !== 'undefined')
           { if (window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)) {
             const changedPerson = {...arr, number: newNumber}
-            personService.update(changedPerson.id, changedPerson).then(response => {
-              setPersons(persons.map(n => n.id !== changedPerson.id ? n : response.data))
+            personService
+              .update(changedPerson.id, changedPerson)
+              .then(response => {setPersons(persons.map(n => n.id !== changedPerson.id ? n : response.data))
+            }) 
+            setUpdateMessage({
+              "text" : `Updated ${changedPerson.name} Phone Number to ${changedPerson.number}`,
+              "type" : "update"
             })
+            setTimeout(() => {setUpdateMessage(null)}, 5000)
           } else {console.log('do not want to change number')}
           } else {
             const nameObject = {
@@ -25,6 +31,12 @@ const PersonForm = ({newName, setNewName, newNumber, setNewNumber, persons, setP
                 setNewName('')
                 setNewNumber('')
               })
+            setUpdateMessage({
+              "text" : `Added ${newName}`,
+              "type" : "update"
+            })
+
+            setTimeout(() => {setUpdateMessage(null)}, 5000)
           }        
       }
 

@@ -4,6 +4,8 @@ import PersonForm from './components/PersonForm'
 import Filter from './components/Filter'
 import axios from 'axios'
 import personService from './services/persons'
+import Notification from './components/Notifications'
+import './index.css'
 
 
 const App = () => {
@@ -16,7 +18,9 @@ const App = () => {
   const [newName, setNewName] = useState('new name')
   const [newNumber, setNewNumber] = useState('new number')
   const [filter, setFilter] = useState('')
-
+  const [updateMessage, setUpdateMessage] = useState(null)
+  
+  
   useEffect( () => {
     personService
       .getAll()
@@ -31,6 +35,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification updateMessage={updateMessage} />
       <Filter filter={filter} setFilter={setFilter} />
       <h3>Add a new</h3>
       <PersonForm 
@@ -40,9 +45,10 @@ const App = () => {
         setNewNumber={setNewNumber}
         persons={persons}
         setPersons={setPersons}
+        setUpdateMessage={setUpdateMessage}
       />
       <h3>All Numbers</h3>
-      <Persons input={filter} persons={persons} setPersons={setPersons}/>
+      <Persons input={filter} persons={persons} setPersons={setPersons} setUpdateMessage={setUpdateMessage}/>
     </div>
   )
 }
