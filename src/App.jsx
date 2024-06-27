@@ -25,6 +25,8 @@ const App = () => {
       })
   }, [])
 
+ 
+
 
   return (
     <div>
@@ -40,7 +42,7 @@ const App = () => {
         setPersons={setPersons}
       />
       <h3>All Numbers</h3>
-      <Persons input={filter} persons={persons}/>
+      <Persons input={filter} persons={persons} setPersons={setPersons}/>
     </div>
   )
 }

@@ -9,7 +9,7 @@ const Persons = (props) => {
     )
 
     return (
-        filteredData.map(person => <ShowName key={person.id} person={person} />)
+        filteredData.map(person => <ShowName key={person.id} person={person} persons={props.persons} setPersons={props.setPersons}/>)
     )
     
   }

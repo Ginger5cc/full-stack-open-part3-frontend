@@ -19,21 +19,6 @@
       "name": "Mary Poppendieck",
       "number": "39-23-6423122",
       "id": "4"
-    },
-    {
-      "name": "Testing HowAreYou",
-      "number": "090-987654321",
-      "id": "5"
-    },
-    {
-      "id": "cdc1",
-      "name": "new name",
-      "number": "new number"
-    },
-    {
-      "id": "a9ad",
-      "name": "new name2",
-      "number": "new number2"
     }
   ]
 }
