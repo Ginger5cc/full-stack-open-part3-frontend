@@ -1,3 +1,6 @@
+import axios from 'axios'
+import personService from '../services/persons'
+
 const PersonForm = ({newName, setNewName, newNumber, setNewNumber, persons, setPersons}) => {
     const addName = (event) => {
         event.preventDefault()
@@ -6,12 +9,16 @@ const PersonForm = ({newName, setNewName, newNumber, setNewNumber, persons, setP
     
         const nameObject = {
           name: newName,
-          number: newNumber,
-          id: persons.length + 1
+          number: newNumber
         }
-        setPersons(persons.concat(nameObject))
-        setNewName('')
-        setNewNumber('')
+        personService
+          .create(nameObject)
+          .then(response => {
+            setPersons(persons.concat(response.data))
+            setNewName('')
+            setNewNumber('')
+          })
+        
       }
 
     return (
