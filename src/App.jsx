@@ -16,7 +16,7 @@ const App = () => {
     { name: 'Mary Poppendieck', number: '39-23-6423122', id: 4 }
   ])
   const [newName, setNewName] = useState('new name')
-  const [newNumber, setNewNumber] = useState('new number')
+  const [newNumber, setNewNumber] = useState('XXX-XXXXX')
   const [filter, setFilter] = useState('')
   const [updateMessage, setUpdateMessage] = useState(null)
   

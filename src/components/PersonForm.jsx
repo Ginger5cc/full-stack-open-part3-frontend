@@ -12,7 +12,16 @@ const PersonForm = ({newName, setNewName, newNumber, setNewNumber, persons, setP
             personService
               .update(changedPerson.id, changedPerson)
               .then(response => {setPersons(persons.map(n => n.id !== changedPerson.id ? n : response.data))
-            }) 
+              }) 
+              .catch(error => {
+                // this is the way to access the error message
+                console.log(error.response.data.error)
+                setUpdateMessage({
+                  "text" : `SHOW ERROR ${error.response.data.error}`,
+                  "type" : "error"
+                })    
+              })
+              
             setUpdateMessage({
               "text" : `Updated ${changedPerson.name} Phone Number to ${changedPerson.number}`,
               "type" : "update"
@@ -30,6 +39,14 @@ const PersonForm = ({newName, setNewName, newNumber, setNewNumber, persons, setP
                 setPersons(persons.concat(response.data))
                 setNewName('')
                 setNewNumber('')
+              })
+              .catch(error => {
+                // this is the way to access the error message
+                console.log(error.response.data.error)
+                setUpdateMessage({
+                  "text" : `SHOW ERROR ${error.response.data.error}`,
+                  "type" : "error"
+                })    
               })
             setUpdateMessage({
               "text" : `Added ${newName}`,
